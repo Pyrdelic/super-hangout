@@ -10,7 +10,11 @@ import (
 )
 
 func ReadRandomLine(path string) string {
-	return readNthLine(rand.Intn(countLines(path)+1), path)
+	word := readNthLine(rand.Intn(countLines(path)+1), path)
+	//fmt.Println("Read: ", word)
+	//fmt.Println("Read uppercase: ", strings.ToUpper(word))
+	//return readNthLine(rand.Intn(countLines(path)+1), path)
+	return word
 }
 
 func readNthLine(n int, path string) string {

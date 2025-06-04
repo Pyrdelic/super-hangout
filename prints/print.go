@@ -29,11 +29,15 @@ func Word(word string, guessed []rune) {
 	fmt.Println()
 }
 
-// Prits the letters player has quessed.
+// Prints the letters player has quessed.
 func Guessed(guessed []rune) {
 	fmt.Print("guessed: ")
 	for _, c := range guessed {
 		fmt.Print(string(c))
 	}
 	fmt.Println()
+}
+
+func Lives(lives int) {
+	fmt.Println("lives: ", lives)
 }
