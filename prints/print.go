@@ -2,25 +2,13 @@ package prints
 
 import (
 	"fmt"
+	"slices"
 )
-
-// check wheter a rune exists in a slice
-func inSlice(x rune, guessed []rune) bool {
-	//fmt.Println(x, guessed)
-	for _, c := range guessed {
-		//fmt.Println("loopchar: ", c)
-		if x == c {
-			//fmt.Println("FOUND!")
-			return true
-		}
-	}
-	return false
-}
 
 // Prints the word with only the guessed letters.
 func Word(word string, guessed []rune) {
 	for _, c := range word {
-		if inSlice(c, guessed) {
+		if slices.Contains(guessed, c) {
 			fmt.Print(string(c))
 		} else {
 			fmt.Print("_")
