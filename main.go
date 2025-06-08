@@ -16,6 +16,7 @@ import (
 
 func main() {
 	word := fileops.ReadRandomLine("wordlist.txt")
+	gameOver := false
 	lives := 10
 	blanksLeft := utf8.RuneCountInString(word)
 	guessed := make([]rune, len(word))
@@ -38,6 +39,10 @@ func main() {
 
 	for {
 		// print
+		prints.AsciiArt(lives)
+		if gameOver {
+			break
+		}
 		prints.Lives(lives)
 		prints.Word(word, guessed)
 		prints.Guessed(guessed)
@@ -71,7 +76,8 @@ func main() {
 		// game over condition
 		if lives <= 0 {
 			fmt.Println("-- GAME OVER --")
-			break
+			gameOver = true
+			continue
 		}
 		// victory condition
 		if blanksLeft <= 0 {
