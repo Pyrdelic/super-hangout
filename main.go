@@ -17,7 +17,8 @@ import (
 func main() {
 	word := fileops.ReadRandomLine("wordlist.txt")
 	gameOver := false
-	lives := 10
+	victory := false
+	lives := 6
 	blanksLeft := utf8.RuneCountInString(word)
 	guessed := make([]rune, len(word))
 	//guessedLetters := ""
@@ -39,14 +40,15 @@ func main() {
 
 	for {
 		// print
-		prints.AsciiArt(lives)
-		if gameOver {
-			break
+		//fmt.Println(victory)
+		prints.AsciiArt(lives, victory)
+		if gameOver || victory {
+			break // end of game reached, break out of game loop
 		}
-		prints.Lives(lives)
+		//prints.Lives(lives)
 		prints.Word(word, guessed)
 		prints.Guessed(guessed)
-		fmt.Println("blanksLeft: ", blanksLeft)
+		//fmt.Println("blanksLeft: ", blanksLeft)
 		fmt.Println()
 
 		// Read input, force to uppercase
@@ -59,9 +61,8 @@ func main() {
 		}
 		//fmt.Println("rune inputted: ", rune(char))
 
-		if char == 27 { // input: ESC
-			fmt.Println("Exiting.")
-			break
+		if char == 27 { // input: ESC (or special char?)
+			break // quit
 		}
 		if slices.Contains(guessed, char) {
 			fmt.Println("Already guessed")
@@ -77,13 +78,13 @@ func main() {
 		if lives <= 0 {
 			fmt.Println("-- GAME OVER --")
 			gameOver = true
-			continue
+			continue // draw win-gfx before breaking out
 		}
 		// victory condition
 		if blanksLeft <= 0 {
-			fmt.Println(word)
-			fmt.Println("VICTORY!")
-			break
+			// fmt.Println(word)
+			// fmt.Println("VICTORY!")
+			victory = true
 		}
 
 		guessed = append(guessed, char)
@@ -91,5 +92,5 @@ func main() {
 		// TODO: lives logic (not in word -> lives--)
 		//lives--
 	}
-
+	fmt.Println("Exiting.")
 }

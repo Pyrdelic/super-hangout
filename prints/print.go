@@ -3,6 +3,7 @@ package prints
 import (
 	"fmt"
 	"slices"
+	"strings"
 )
 
 // Prints the word with only the guessed letters.
@@ -30,7 +31,7 @@ func Lives(lives int) {
 	fmt.Println("lives: ", lives)
 }
 
-func AsciiArt(lives int) {
+func AsciiArt(lives int, victory bool) {
 	asciiArt :=
 		`
 	
@@ -100,5 +101,15 @@ func AsciiArt(lives int) {
 	default:
 		break
 	}
+
+	if victory {
+		parts := strings.Split(asciiArt, "\n")
+		parts[4] += `       victory!`
+		parts[5] += `         \O/`
+		parts[6] += `     |`
+		parts[7] += `   / \`
+		asciiArt = strings.Join(parts, "\n")
+	}
+
 	fmt.Println(asciiArt)
 }
