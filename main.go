@@ -23,8 +23,8 @@ func main() {
 	guessed := make([]rune, len(word))
 	//guessedLetters := ""
 
-	prints.Word(word, guessed[:])
-	prints.Guessed(guessed[:])
+	// prints.Word(word, guessed[:])
+	// prints.Guessed(guessed[:])
 
 	reader := bufio.NewReader(os.Stdin)
 
@@ -42,9 +42,6 @@ func main() {
 		// print
 		//fmt.Println(victory)
 		prints.AsciiArt(lives, victory)
-		if gameOver || victory {
-			break // end of game reached, break out of game loop
-		}
 		//prints.Lives(lives)
 		prints.Word(word, guessed)
 		prints.Guessed(guessed)
@@ -76,21 +73,27 @@ func main() {
 
 		// game over condition
 		if lives <= 0 {
-			fmt.Println("-- GAME OVER --")
+			//fmt.Println("-- GAME OVER --")
 			gameOver = true
-			continue // draw win-gfx before breaking out
+			break
 		}
 		// victory condition
 		if blanksLeft <= 0 {
 			// fmt.Println(word)
 			// fmt.Println("VICTORY!")
 			victory = true
+			break
 		}
 
 		guessed = append(guessed, char)
 		// TODO: Win-condition
 		// TODO: lives logic (not in word -> lives--)
 		//lives--
+	}
+
+	// exit prints
+	if gameOver || victory {
+		prints.AsciiArt(lives, victory)
 	}
 	fmt.Println("Exiting.")
 }
